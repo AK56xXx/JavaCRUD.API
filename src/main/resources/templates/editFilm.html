@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<title>Edit film </title>
+
+</head>
+<body>
+<div class="container">
+<h1>EDIT FILM</h1>
+<br>
+<form action="/film/update" method="post" enctype="multipart/form-data" id="f1">
+    <input type="hidden" name="id" th:value="${film.id}" >
+<p>
+	<label for="title" class="form-label">Film name : </label>
+	<input type="text" name="title" id="title" th:value="${film.title}" class="form-control" required  >
+	
+</p>
+<p>
+	<label for="description" class="form-label">Description : </label>
+	<!-- when there is a textarea we use this method below to get the value (not th:value)-->
+	<textarea rows="5" class="form-control" name="description">[[${film.description}]]</textarea>
+	</p>
+<p>
+	<label for="year" class="form-label">Year : </label>
+	<input type="number" min="1900"  name="year" id="annee" th:value="${film.year}" class="form-control" required>
+</p>
+
+
+<p>
+	<label for="category" class="form-label">Category : </label>
+	<select name="category" class="form-select">
+		<option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+	</select>
+</p>
+
+<p>
+	<label  class="form-label">Select the actors : </label>
+	<select name="actors" class="form-select" multiple>
+		<option th:each="actor : ${actors}" th:value="${actor.id}" th:text="${actor.fname+' '+actor.lname}"></option>
+	</select>
+</p>
+
+<p><input type="submit" class="btn btn-outline-primary" value="Update">
+<input type="reset" class="btn btn-outline-secondary" value="Clear">
+</p>
+</form>
+</div>
+</body>
+</html>

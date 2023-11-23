@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<title>Edit actor</title>
+-
+</head>
+<body>
+<div class="container">
+<h1>Edit actor</h1>
+<form action="/actor/update" method="post"  id="f1">
+<p>
+	<label for="fname" class="form-label">First name: </label>
+	<input type="text" name="fname" id="fname" class="form-control" th:value="${actor.fname}" required >
+</p>
+<p>
+	<label for="lname" class="form-label">Last name : </label>
+	<input type="text" name="lname" id="lname" class="form-control" th:value="${actor.lname}" required >
+</p>
+<p>
+	<input type="submit" class="btn btn-outline-primary" value="Update">
+	<input type="reset" class="btn btn-outline-secondary" value="Clear">
+</p>
+</form>
+</div>
+</body>
+</html>

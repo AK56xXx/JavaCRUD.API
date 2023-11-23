@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>List of Films</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+
+<div class="container mt-4">
+	<h1>List of Films</h1>
+	<br>
+
+	<div class="my-3"><a href="/film/new" class="btn btn-outline-success">Add new film</a></div>
+
+	<table class="table table-hover">
+		<tr style="background-color: #cccccc;">
+			<th>#</th>
+			<th>TITLE</th>
+			<th>DESCRIPTION</th>
+			<th>YEAR</th>
+			<th>CATEGORY</th>
+			<th>ACTORS</th>
+			<th>ACTION</th>
+		</tr>
+		<tr th:each="film : ${films}">
+			<td th:text="${film.id}"></td>
+			<td th:text="${film.title}"></td>
+			<td th:text="${film.description}"></td>
+			<td th:text="${film.year}"></td>
+			<td th:text="${film.category.name}"></td>
+			<td>
+				<ul>
+					<li th:each="actor: ${film.actors}" th:text="${actor.fname + ' ' + actor.lname}"></li>
+				</ul>
+			</td>
+
+			<td><a th:href="@{/film/delete/{id} (id=${film.id})}" class="btn btn-outline-danger"
+				onclick="return confirm('Delete this film ?')">Delete</a>
+				<a th:href="@{/film/edit/{id} (id=${film.id})}" class="btn btn-outline-warning">Edit</a>
+			</td>
+		</tr>	
+	</table>
+
+</div>
+</body>
+</html>
