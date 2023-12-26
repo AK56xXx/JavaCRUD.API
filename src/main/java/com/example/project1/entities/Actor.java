@@ -2,8 +2,7 @@ package com.example.project1.entities;
 
 import java.util.List;
 
-
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -27,10 +26,8 @@ public class Actor {
     private String fname;
     private String lname;
 
-    @OneToMany(mappedBy = "actors", cascade = CascadeType.ALL) //"actors" is the list of actors in Film entitie
+    @JsonIgnore
+    @OneToMany(mappedBy = "actors", cascade = CascadeType.ALL) // "actors" is the list of actors in Film entitie
     List<Film> films;
 
-
-    
-    
 }
