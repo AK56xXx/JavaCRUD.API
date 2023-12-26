@@ -1,13 +1,11 @@
 package com.example.project1.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.project1.entities.Film;
 import com.example.project1.repository.FilmRepository;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class ServiceFilm implements IServiceFilm {
@@ -39,5 +37,10 @@ public class ServiceFilm implements IServiceFilm {
     public void deleteFilm(Film film) {
         filmRepository.delete(film);
     }
-    
+
+    @Override
+    public boolean filmExist(int id) {
+        return filmRepository.existsById(id);
+    }
+
 }

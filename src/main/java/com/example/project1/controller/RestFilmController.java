@@ -3,8 +3,7 @@ package com.example.project1.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.project1.entities.Film;
-import com.example.project1.service.IServiceActor;
-import com.example.project1.service.IServiceCategory;
+import com.example.project1.exception.film.FilmNotFoundException;
 import com.example.project1.service.IServiceFilm;
 
 import java.util.List;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -32,8 +29,16 @@ public class RestFilmController {
         return iServiceFilm.findAllFilms();
     }
 
+    public boolean isNotInt(Object variable) {
+        return !(variable instanceof Integer);
+    }
+
     @GetMapping("/{id}")
     public Film findFilmById(@PathVariable int id) {
+        // exception
+        if (!iServiceFilm.filmExist(id)) {
+            throw new FilmNotFoundException();
+        }
         return iServiceFilm.findFilmById(id);
     }
 
