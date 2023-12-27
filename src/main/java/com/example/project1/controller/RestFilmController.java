@@ -29,10 +29,6 @@ public class RestFilmController {
         return iServiceFilm.findAllFilms();
     }
 
-    public boolean isNotInt(Object variable) {
-        return !(variable instanceof Integer);
-    }
-
     @GetMapping("/{id}")
     public Film findFilmById(@PathVariable int id) {
         // exception
