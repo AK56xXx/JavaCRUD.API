@@ -43,4 +43,11 @@ public class ServiceFilm implements IServiceFilm {
         return filmRepository.existsById(id);
     }
 
+
+    // (3) adding search by year to the service implementation and call the repository method
+    @Override
+    public List<Film> findFilmsByYear(int year) {
+        return filmRepository.findFilmsByYear(year);
+    }
+
 }

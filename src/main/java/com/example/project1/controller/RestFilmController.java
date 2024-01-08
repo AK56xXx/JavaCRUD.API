@@ -48,9 +48,18 @@ public class RestFilmController {
         return iServiceFilm.updateFilm(film);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void DeleteFilm(@PathVariable int id) {
         iServiceFilm.deleteFilm(iServiceFilm.findFilmById(id));
+    }
+
+    // (4) finally adding search by year to the REST API controllers
+    // check (FilmRepository, IServiceFilm, ServiceFilm) for the full implementation
+    // this is a custom API/method added in FilRepository -> IServiceFilm ->
+    // ServiceFilm -> RestFilmController
+    @GetMapping("/year/{year}")
+    public List<Film> findFilmsByYear(@PathVariable int year) {
+        return iServiceFilm.findFilmsByYear(year);
     }
 
 }
