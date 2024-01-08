@@ -18,4 +18,7 @@ public interface IServiceFilm {
 
     public void deleteFilm(Film film);
 
+    // (2) adding search by year to the service interface
+    public List<Film> findFilmsByYear(int year);
+
 }

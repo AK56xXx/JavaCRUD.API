@@ -9,6 +9,7 @@ import com.example.project1.service.IServiceFilm;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,11 +26,13 @@ public class RestFilmController {
     IServiceFilm iServiceFilm;
 
     @GetMapping("")
+    @PreAuthorize("hasAuthority('SCOPE_USER')")
     public List<Film> findAllFilms() {
         return iServiceFilm.findAllFilms();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_USER')")
     public Film findFilmById(@PathVariable int id) {
         // exception
         if (!iServiceFilm.filmExist(id)) {
@@ -39,18 +42,31 @@ public class RestFilmController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public Film AddFilm(@RequestBody Film film) {
         return iServiceFilm.createFilm(film);
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public Film UpdateFilm(@RequestBody Film film) {
         return iServiceFilm.updateFilm(film);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public void DeleteFilm(@PathVariable int id) {
         iServiceFilm.deleteFilm(iServiceFilm.findFilmById(id));
+    }
+
+    // (4) finally adding search by year to the REST API controllers
+    // check (FilmRepository, IServiceFilm, ServiceFilm) for the full implementation
+    // this is a custom API/method added in FilRepository -> IServiceFilm ->
+    // ServiceFilm -> RestFilmController
+    @GetMapping("/year/{year}")
+    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    public List<Film> findFilmsByYear(@PathVariable int year) {
+        return iServiceFilm.findFilmsByYear(year);
     }
 
 }
